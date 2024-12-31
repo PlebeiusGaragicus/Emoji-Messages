@@ -40,6 +40,35 @@ def log_rerun():
     cprint(f"RUNNING for: {ip_addr} - {lang} - {user_agent}", Colors.YELLOW)
 
 
+
+
+
+
+# Define a mapping from ASCII characters to emojis
+emoji_mapping = {
+    'a': '😀', 'b': '😁', 'c': '😂', 'd': '🤣', 'e': '😃', 
+    'f': '😄', 'g': '😅', 'h': '😆', 'i': '😉', 'j': '😊',
+    'k': '😋', 'l': '😎', 'm': '😍', 'n': '😘', 'o': '😗',
+    'p': '😙', 'q': '😚', 'r': '😇', 's': '🙂', 't': '🙃',
+    'u': '☹️', 'v': '😡', 'w': '😠', 'x': '😶', 'y': '😐', 
+    'z': '😑', ' ': ' ', '.': '✨', ',': '🌈', '!': '🎉', '?': '❓'
+}
+
+def convert_to_emoji(text):
+    """Convert the given text to emoji using the defined mapping."""
+    result = []
+    for char in text.lower():
+        if char in emoji_mapping:
+            result.append(emoji_mapping[char])
+        else:
+            result.append(char)  # Keep original character if no mapping found
+    return ''.join(result)
+
+
+
+
+
+
 def main_page():
     log_rerun()
 
@@ -52,3 +81,18 @@ def main_page():
             st.write(":orange[DEBUG]")
             st.write( st.context.cookies )
             st.write( st.context.headers )
+
+
+
+
+
+    st.title("ASCII to Emoji Converter")
+    st.write("Enter text to convert to emojis:")
+
+
+    input_text = st.text_area("Input text", height=200)
+
+    if st.button("Convert"):
+        emoji_text = convert_to_emoji(input_text)
+        st.subheader("Converted to emoji:")
+        st.write(emoji_text)
